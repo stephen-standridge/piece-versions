@@ -2,8 +2,11 @@
 
 Versioned repository of pieces for formisfunction.io
 
-##package.json
+##update your package.json
 ```
+	"scripts": {
+    "production": "webpack --config ./pieces/core/webpack.config.production.js"
+	},
   "devDependencies": {
     "webpack": "^1.13.0",
     "ejs": "^2.4.1",
@@ -12,13 +15,9 @@ Versioned repository of pieces for formisfunction.io
   }
 ```
 
-##webpack.config.production.js
+##to run
 ```
-var path = require('path');
-var makeVersionableConfig = require('./pieces/core/webpack-config');
-var mergeWebpackConfig = require('webpack-config-merger');
-var config = require('./webpack.config.js')
-
-module.exports = mergeWebpackConfig( config, makeVersionableConfig('name') )
+npm run production
 ```
 
+looks for webpack.config.js and redefines its destination.
