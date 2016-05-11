@@ -4,9 +4,10 @@ var mergeWebpackConfig = require('webpack-config-merger');
 
 
 module.exports = function makeVersionableConfig(config){
-  var pieceNames = config.output.filename.split('/');
-  var pieceName = pieceNames[pieceNames.length - 1 ].split('.')[0];
+  var pieceName = config.output.filename.split('.')[0];
+
   return mergeWebpackConfig( config, {
+    watch: false,
     output: {
       path: 'pieces/dist/'+pieceName+'/[hash]',
       filename: pieceName+ '.js',

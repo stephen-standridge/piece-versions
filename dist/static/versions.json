@@ -1,0 +1,11 @@
+{
+  "name": "static",
+  "versions": [
+    {
+      "buildDate": "Tue May 10 2016 22:09:02 GMT-0700 (PDT)",
+      "hash": "b820eb4923467145f5d4",
+      "url": "pieces/static/b820eb4923467145f5d4/static.js",
+      "assets": "pieces/static/b820eb4923467145f5d4/assets"
+    }
+  ]
+}
