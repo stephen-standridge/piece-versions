@@ -6,7 +6,7 @@ function VersionFile(options) {
     var self = this;
 	
     var defaultOptions = {
-        outputFile: `./pieces/${options.name}/versions.txt`,
+        outputFile: `./pieces/dist/${options.name}/versions.json`,
         template: './pieces/core/version.ejs',
         templateString: '',
         extras: {}
@@ -41,7 +41,7 @@ VersionFile.prototype.apply = function(compiler){
             fs.readFile(self.options.template, {encoding: 'utf8'}, function(error, content){
 
                 if(error){
-                    throw error;
+                  throw error
                     return;
                 }
 
@@ -63,16 +63,28 @@ VersionFile.prototype.writeFile = function(templateContent){
 
 	fileContent = ejs.render(templateContent, self.options);
     fs.readFile( self.options.outputFile, {encoding: 'utf8'}, function(error, content){
-      if(error) throw error
+      if(error){
+        if(error.code == 'ENOENT'){
+          fs.writeFile( self.options.outputFile, content, function(error){
+            if(error) {
+                throw error
+            }
+          } )
+        }else {
+          throw error
+        }
+      }
 
       var oldData = JSON.parse(content || 'null') || {};
       var newData = JSON.parse(fileContent);
       oldData.versions = oldData.versions || [];
       oldData.name = newData.name;
       newData.versions = uniqBy( oldData.versions.concat( newData.versions ), 'hash' );
-      
+
       fs.writeFile( self.options.outputFile, JSON.stringify( newData ), function(error){
-        if(error) throw error;
+        if(error) {
+            throw error
+        }
       } )
     });
 }
